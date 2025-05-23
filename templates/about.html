@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h1>This is from the about.html template</h1>
+<p>Welcome to the Django web application!</p>
+
+<p>
+    {{ my_text }} , {{ my_number }} , {{ my_list }}
+
+    {{my_html|safe}}
+</p>
+
+<ul>
+    {% for abc in my_list %}
+        {% if abc == 100 %}
+            <li> {{ forloop.counter }} - {{ abc|add:49 }}</li>
+        {% elif abc == 200 %}
+            <li> {{ forloop.counter }} - {{ abc|add:59 }}</li>
+        {% else %}
+            <li> {{ forloop.counter }} - {{ abc }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+{% endblock %}
