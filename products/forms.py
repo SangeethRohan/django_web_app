@@ -11,7 +11,6 @@ class ProductForm(forms.ModelForm):
                     )
             )
     
-    email = forms.EmailField()
     description = forms.CharField(
                         required=False, 
                         widget=forms.Textarea(
@@ -33,26 +32,28 @@ class ProductForm(forms.ModelForm):
             'price',
 
         ]
-    def clean_title(self, *args, **kwargs):
-        title = self.cleaned_data.get("title")
-        if not "CFE" in title :
-            raise forms.ValidationError("Thsi is not a valid title")
-        if not "news" in title :
-            raise forms.ValidationError("This is not a valid title")
+
+    # def clean_title(self, *args, **kwargs):
+    #     title = self.cleaned_data.get("title")
+    #     if not "R" in title :
+    #         raise forms.ValidationError("This is not a valid title")
+    #     if not "news" in title :
+    #         raise forms.ValidationError("This is not a valid title")
         
-        return title
+    #     return title
         
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        if not (email.endswith(".edu") or email.endswith(".com")):
-            raise forms.ValidationError("Email must end with .edu or .com")
-        return email
+    # def clean_email(self):
+    #     email = self.cleaned_data.get("email")
+    #     if not (email.endswith(".edu") or email.endswith(".com")):
+    #         raise forms.ValidationError("Email must end with .edu or .com")
+    #     return email
 
 
         
 
 class RawProductForm(forms.Form):
     title       = forms.CharField(
+                        required=True,
                         label = '', 
                         widget=forms.TextInput(
                             attrs = {
@@ -61,7 +62,7 @@ class RawProductForm(forms.Form):
                         )
                     )
     description = forms.CharField(
-                        required=False, 
+                        required=True, 
                         widget=forms.Textarea(
                             attrs = {
                                 "placeholder": "Your Description",
@@ -72,4 +73,4 @@ class RawProductForm(forms.Form):
                             }
                             )
                         )
-    price       = forms.DecimalField(initial=199.99)
+    price       = forms.DecimalField(required=True)
